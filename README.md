@@ -1,15 +1,10 @@
-# bschmitt/laravel-amqp
+# filld/laravel-amqp
 AMQP wrapper for Laravel and Lumen to publish and consume messages especially from RabbitMQ
-
-[![Build Status](https://travis-ci.org/bschmitt/laravel-amqp.svg?branch=master)](https://travis-ci.org/bschmitt/laravel-amqp)
-[![Latest Stable Version](https://poser.pugx.org/bschmitt/laravel-amqp/v/stable.svg)](https://packagist.org/packages/bschmitt/laravel-amqp)
-[![License](https://poser.pugx.org/bschmitt/laravel-amqp/license.svg)](https://packagist.org/packages/bschmitt/laravel-amqp)
 
 ## Features
   - Advanced queue configuration
   - Add message to queues easily
   - Listen queues with useful options
-
 
 ## Installation
 
@@ -18,7 +13,7 @@ AMQP wrapper for Laravel and Lumen to publish and consume messages especially fr
 Add the following to your require part within the composer.json: 
 
 ```js
-"bschmitt/laravel-amqp": "1.*"
+"filld/laravel-amqp": "1.*"
 ```
 ```batch
 $ php composer update
@@ -27,7 +22,7 @@ $ php composer update
 or
 
 ```
-$ php composer require bschmitt/laravel-amqp
+$ php composer require filld/laravel-amqp
 ```
 
 ## Integration
@@ -35,7 +30,7 @@ $ php composer require bschmitt/laravel-amqp
 ### Lumen
 
 Create a **config** folder in the root directory of your Lumen application and copy the content
-from **vendor/bschmitt/laravel-amqp/config/amqp.php** to **config/amqp.php**.
+from **vendor/filld/laravel-amqp/config/amqp.php** to **config/amqp.php**.
 
 Adjust the properties to your needs.
 
@@ -79,7 +74,7 @@ Register the Lumen Service Provider in **bootstrap/app.php**:
 //...
 
 $app->configure('amqp');
-$app->register(Bschmitt\Amqp\LumenServiceProvider::class);
+$app->register(Filld\Amqp\LumenServiceProvider::class);
 
 //...
 ```
@@ -99,11 +94,11 @@ class_alias(\Illuminate\Support\Facades\App::class, 'App');
 Open **config/app.php** and add the service provider and alias:
 
 ```php
-'Bschmitt\Amqp\AmqpServiceProvider',
+'Filld\Amqp\AmqpServiceProvider',
 ```
 
 ```php
-'Amqp' => 'Bschmitt\Amqp\Facades\Amqp',
+'Amqp' => 'Filld\Amqp\Facades\Amqp',
 ```
 
 
@@ -199,6 +194,7 @@ Amqp::consume('queue-name', function ($message, $resolver) {
 
 ## Credits
 
+* This project is a fork of https://github.com/bschmitt/laravel-amqp
 * Some concepts were used from https://github.com/mookofe/tail
 
 

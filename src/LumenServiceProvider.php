@@ -1,4 +1,4 @@
-<?php namespace Bschmitt\Amqp;
+<?php namespace Filld\Amqp;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -27,18 +27,18 @@ class LumenServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('Bschmitt\Amqp\Publisher', function ($app) {
+        $this->app->bind('Filld\Amqp\Publisher', function ($app) {
             return new Publisher($app->config);
         });
 
-        $this->app->bind('Bschmitt\Amqp\Consumer', function ($app) {
+        $this->app->bind('Filld\Amqp\Consumer', function ($app) {
             return new Consumer($app->config);
         });
 
-        $this->app->bind('Amqp', 'Bschmitt\Amqp\Amqp');
+        $this->app->bind('Amqp', 'Filld\Amqp\Amqp');
 
         if (!class_exists('Amqp')) {
-            class_alias('Bschmitt\Amqp\Facades\Amqp', 'Amqp');
+            class_alias('Filld\Amqp\Facades\Amqp', 'Amqp');
         }
     }
 

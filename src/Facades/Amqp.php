@@ -1,10 +1,10 @@
-<?php namespace Bschmitt\Amqp\Facades;
+<?php namespace Filld\Amqp\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
  * @author Björn Schmitt <code@bjoern.io>
- * @see Bschmitt\Amqp\Amqp
+ * @see Filld\Amqp\Amqp
  */
 class Amqp extends Facade
 {

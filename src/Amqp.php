@@ -1,9 +1,9 @@
-<?php namespace Bschmitt\Amqp;
+<?php namespace Filld\Amqp;
 
 use App;
 use Closure;
-use Bschmitt\Amqp\Request;
-use Bschmitt\Amqp\Message;
+use Filld\Amqp\Request;
+use Filld\Amqp\Message;
 
 /**
  * @author Björn Schmitt <code@bjoern.io>
@@ -21,7 +21,7 @@ class Amqp
         $properties['routing'] = $routing;
 
         /* @var Publisher $publisher */
-        $publisher = App::make('Bschmitt\Amqp\Publisher');
+        $publisher = App::make('Filld\Amqp\Publisher');
         $publisher
             ->mergeProperties($properties)
             ->setup();
@@ -45,7 +45,7 @@ class Amqp
         $properties['queue'] = $queue;
 
         /* @var Consumer $consumer */
-        $consumer = App::make('Bschmitt\Amqp\Consumer');
+        $consumer = App::make('Filld\Amqp\Consumer');
         $consumer
             ->mergeProperties($properties)
             ->setup();
@@ -57,7 +57,7 @@ class Amqp
     /**
      * @param string $body
      * @param array  $properties
-     * @return \Bschmitt\Amqp\Message
+     * @return \Filld\Amqp\Message
      */
     public function message($body, $properties = [])
     {

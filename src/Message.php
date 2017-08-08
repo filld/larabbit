@@ -1,4 +1,4 @@
-<?php namespace Bschmitt\Amqp;
+<?php namespace Filld\Amqp;
 
 use \PhpAmqpLib\Message\AMQPMessage;
 

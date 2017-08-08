@@ -1,5 +1,5 @@
 {
-  "name": "bschmitt/laravel-amqp",
+  "name": "filld/laravel-amqp",
   "description": "AMQP wrapper for Laravel and Lumen to publish and consume messages",
   "keywords": [
     "laravel",
@@ -11,12 +11,12 @@
     "package",
     "message queue",
     "Björn Schmitt",
-    "bschmitt"
+    "filld"
   ],
   "license": "MIT",
   "support": {
-      "issues": "https://github.com/bschmitt/laravel-amqp/issues",
-      "source": "https://github.com/bschmitt/laravel-amqp"
+      "issues": "https://github.com/filld/laravel-amqp/issues",
+      "source": "https://github.com/filld/laravel-amqp"
   },
   "authors": [
     {
@@ -35,7 +35,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Bschmitt\\Amqp\\": "src/"
+      "Filld\\Amqp\\": "src/"
     }
   },
   "minimum-stability": "dev"

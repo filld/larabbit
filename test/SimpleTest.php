@@ -1,4 +1,4 @@
-<?php namespace Bschmitt\Amqp\Test;
+<?php namespace Filld\Amqp\Test;
 
 /**
  * @author Björn Schmitt <code@bjoern.io>

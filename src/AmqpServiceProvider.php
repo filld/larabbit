@@ -1,7 +1,7 @@
-<?php namespace Bschmitt\Amqp;
+<?php namespace Filld\Amqp;
 
-use Bschmitt\Amqp\Consumer;
-use Bschmitt\Amqp\Publisher;
+use Filld\Amqp\Consumer;
+use Filld\Amqp\Publisher;
 use Illuminate\Support\ServiceProvider;
 
 class AmqpServiceProvider extends ServiceProvider
@@ -21,9 +21,9 @@ class AmqpServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->bind('Amqp', 'Bschmitt\Amqp\Amqp');
+        $this->app->bind('Amqp', 'Filld\Amqp\Amqp');
         if (!class_exists('Amqp')) {
-            class_alias('Bschmitt\Amqp\Facades\Amqp', 'Amqp');
+            class_alias('Filld\Amqp\Facades\Amqp', 'Amqp');
         }
     }
 
@@ -34,10 +34,10 @@ class AmqpServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('Bschmitt\Amqp\Publisher', function ($app) {
+        $this->app->singleton('Filld\Amqp\Publisher', function ($app) {
             return new Publisher(config());
         });
-        $this->app->singleton('Bschmitt\Amqp\Consumer', function ($app) {
+        $this->app->singleton('Filld\Amqp\Consumer', function ($app) {
             return new Consumer(config());
         });
 
@@ -50,7 +50,7 @@ class AmqpServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['Amqp', 'Bschmitt\Amqp\Publisher', 'Bschmitt\Amqp\Consumer'];
+        return ['Amqp', 'Filld\Amqp\Publisher', 'Filld\Amqp\Consumer'];
     }
 
 }
