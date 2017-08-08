@@ -27,6 +27,16 @@ $ php composer require filld/larabbit
 
 ## Integration
 
+### Environement Variables
+
+The following Env vars need to be set in your `.env` file:
+
+    RABBITMQ_HOST
+    RABBITMQ_PORT
+    RABBITMQ_USERNAME
+    RABBITMQ_PASSWORD
+    RABBITMQ_VHOST
+
 ### Lumen
 
 Create a **config** folder in the root directory of your Lumen application and copy the content
@@ -42,11 +52,11 @@ return [
     'properties' => [
 
         'production' => [
-            'host'                => 'localhost',
-            'port'                => 5672,
-            'username'            => 'username',
-            'password'            => 'password',
-            'vhost'               => '/',
+            'host'                => env('RABBITMQ_HOST', 'localhost'),
+            'port'                => env('RABBITMQ_PORT', 5672),
+            'username'            => env('RABBITMQ_USERNAME'),
+            'password'            => env('RABBITMQ_PASSWORD'),
+            'vhost'               => env('RABBITMQ_VHOST'),
             'exchange'            => 'amq.topic',
             'exchange_type'       => 'topic',
             'consumer_tag'        => 'consumer',
