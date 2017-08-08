@@ -1,4 +1,4 @@
-# filld/laravel-amqp
+# filld/larabbit
 AMQP wrapper for Laravel and Lumen to publish and consume messages especially from RabbitMQ
 
 ## Features
@@ -13,7 +13,7 @@ AMQP wrapper for Laravel and Lumen to publish and consume messages especially fr
 Add the following to your require part within the composer.json: 
 
 ```js
-"filld/laravel-amqp": "1.*"
+"filld/larabbit": "1.*"
 ```
 ```batch
 $ php composer update
@@ -22,7 +22,7 @@ $ php composer update
 or
 
 ```
-$ php composer require filld/laravel-amqp
+$ php composer require filld/larabbit
 ```
 
 ## Integration
@@ -30,7 +30,7 @@ $ php composer require filld/laravel-amqp
 ### Lumen
 
 Create a **config** folder in the root directory of your Lumen application and copy the content
-from **vendor/filld/laravel-amqp/config/amqp.php** to **config/amqp.php**.
+from **vendor/filld/larabbit/config/amqp.php** to **config/amqp.php**.
 
 Adjust the properties to your needs.
 

@@ -1,5 +1,5 @@
 {
-  "name": "filld/laravel-amqp",
+  "name": "filld/larabbit",
   "description": "AMQP wrapper for Laravel and Lumen to publish and consume messages",
   "keywords": [
     "laravel",
@@ -15,10 +15,14 @@
   ],
   "license": "MIT",
   "support": {
-      "issues": "https://github.com/filld/laravel-amqp/issues",
-      "source": "https://github.com/filld/laravel-amqp"
+      "issues": "https://github.com/filld/larabbit/issues",
+      "source": "https://github.com/filld/larabbit"
   },
   "authors": [
+    {
+      "name": "Ryan Hoshor",
+      "email": "rhoshor@filld.co"
+    },
     {
       "name": "Björn Schmitt",
       "email": "code@bjoern.io"
