@@ -89,13 +89,10 @@ $app->register(Filld\Amqp\LumenServiceProvider::class);
 //...
 ```
 
-Add Facade Support for Lumen 5.2+
+Enable Facade Support for Lumen 5.2+
 
 ```php
-//...
 $app->withFacades();
-class_alias(\Illuminate\Support\Facades\App::class, 'App');
-//...
 ```
 
 
@@ -132,6 +129,22 @@ Open **config/app.php** and add the service provider and alias:
     Amqp::publish('routing-key', 'message' , ['exchange' => 'amq.direct']);
 ```
 
+Notice that if you attempt to set properties like: `x-message-ttl` you may get an error like the following:
+
+> AMQP-rabbit doesn't define data of type []
+
+You **must** specify a type:
+
+```php
+    Amqp::publish('routing-key', 'message', [
+        'queue_properties' => [
+            "x-ha-policy" => ["S", "all"],
+            'x-message-ttl' => ['I', 86400000],
+            'x-dead-letter-exchange' => ['S', 'orders_dead_letter'],
+        ],
+        'queue' => 'orders'
+    ]);
+```
 
 ## Consuming messages
 

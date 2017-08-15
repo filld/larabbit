@@ -1,6 +1,5 @@
 <?php namespace Filld\Amqp;
 
-use App;
 use Closure;
 use Filld\Amqp\Request;
 use Filld\Amqp\Message;
