@@ -20,7 +20,7 @@ class Amqp
         $properties['routing'] = $routing;
 
         /* @var Publisher $publisher */
-        $publisher = App::make('Filld\Amqp\Publisher');
+        $publisher = app()->make('Filld\Amqp\Publisher');
         $publisher
             ->mergeProperties($properties)
             ->setup();
@@ -44,7 +44,7 @@ class Amqp
         $properties['queue'] = $queue;
 
         /* @var Consumer $consumer */
-        $consumer = App::make('Filld\Amqp\Consumer');
+        $consumer = app()->make('Filld\Amqp\Consumer');
         $consumer
             ->mergeProperties($properties)
             ->setup();
