@@ -41,8 +41,8 @@ class LumenServiceProvider extends ServiceProvider
             class_alias('Filld\Amqp\Facades\Amqp', 'Amqp');
         }
 
-        //Add App facade if is lumen >5.2
-        if ($this->version() >= 5.2) {
+        // Add App facade if is lumen >5.2
+        if ($this->version() >= 5.2 && !class_exists('App')) {
             class_alias('Illuminate\Support\Facades\App', 'App');
         }       
     }
