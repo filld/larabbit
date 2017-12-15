@@ -20,12 +20,17 @@ return [
 
         'production' => [
             'host'					=> env('RABBITMQ_HOST', 'localhost'),
-            'port'          		=> env('RABBITMQ_PORT', 5672),
+            'port'          		=> env('RABBITMQ_PORT', 5672), // SSL port is 5671
             'username'        		=> env('RABBITMQ_USERNAME'),
             'password'        		=> env('RABBITMQ_PASSWORD'),
             'vhost'           		=> env('RABBITMQ_VHOST'),
             'connect_options'       => [],
-            'ssl_options'           => [],
+            'ssl_options'     		=> [],
+//            'ssl_options'     		=> [
+//                'capath' => '/etc/ssl/certs',
+//                'cafile' => env('RABBITMQ_SSL_CERT_PATH', storage_path() . '/certs/cacert.pem'),
+//                'verify_peer' => true
+//            ],
 
             'exchange'              => 'amq.topic',
             'exchange_type'         => 'topic',

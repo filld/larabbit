@@ -36,6 +36,9 @@ The following Env vars need to be set in your `.env` file:
     RABBITMQ_USERNAME
     RABBITMQ_PASSWORD
     RABBITMQ_VHOST
+    
+    # Optional SSL:
+    RABBITMQ_SSL_CERT_PATH
 
 ### Lumen
 
@@ -108,6 +111,21 @@ Open **config/app.php** and add the service provider and alias:
 'Amqp' => 'Filld\Amqp\Facades\Amqp',
 ```
 
+## Setting up SSL
+
+Make sure you copy the CA cert chain to somewhere that you can reference.
+The `storage/certs` directory is suggested.  Also, don't forget to set the
+SSL settings in the config: 
+
+```php
+'connect_options'     => [
+    'capath' => '/etc/ssl/certs',
+    'cafile' => env('RABBITMQ_SSL_CERT', storage_path() . '/certs/cacert.pem'),
+    'verify_peer' => true
+],
+```
+
+Also, don't forget that the port likely changed to 5672
 
 ## Publishing a message
 
