@@ -125,7 +125,7 @@ SSL settings in the config:
 ],
 ```
 
-Also, don't forget that the port likely changed to 5672
+Also, don't forget that the port likely changed to 5671
 
 ## Publishing a message
 
