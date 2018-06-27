@@ -27,7 +27,7 @@ $ php composer require filld/larabbit
 
 ## Integration
 
-### Environement Variables
+### Environment Variables
 
 The following Env vars need to be set in your `.env` file:
 
