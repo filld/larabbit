@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ryebread
- * Date: 6/27/18
- * Time: 2:54 PM
- */
-
 namespace Filld\Amqp;
 
 class MQPayload implements \JsonSerializable
