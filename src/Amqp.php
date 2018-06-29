@@ -1,6 +1,7 @@
 <?php namespace Filld\Amqp;
 
 use Closure;
+use Filld\Amqp\Constants\AmqpConstants;
 use Filld\Amqp\Request;
 use Filld\Amqp\Message;
 
@@ -63,4 +64,52 @@ class Amqp
         return new Message($body, $properties);
     }
 
+
+    /**
+     * @param string $exchange
+     * @param string $routingKey
+     * @param mixed  $message
+     * @param array  $properties
+     */
+    public function publishTopic($exchange, $routingKey, $message, array $properties = [])
+    {
+        self::publishAny($exchange, AmqpConstants::EXCHANGE_TYPE_TOPIC, $routingKey, $message, $properties);
+    }
+
+    /**
+     * @param string $exchange
+     * @param string $routingKey
+     * @param mixed  $message
+     * @param array  $properties
+     */
+    public function publishDirect($exchange, $routingKey, $message, array $properties = [])
+    {
+        self::publishAny($exchange, AmqpConstants::EXCHANGE_TYPE_DIRECT, $routingKey, $message, $properties);
+    }
+
+    /**
+     * @param string $exchange
+     * @param string $routingKey
+     * @param mixed  $message
+     * @param array  $properties
+     */
+    public function publishFanout($exchange, $routingKey, $message, array $properties = [])
+    {
+        self::publishAny($exchange, AmqpConstants::EXCHANGE_TYPE_FANOUT, $routingKey, $message, $properties);
+    }
+
+    /**
+     * @param string $exchange
+     * @param        $exchangeType
+     * @param string $routingKey
+     * @param mixed  $message
+     * @param array  $properties
+     */
+    protected function publishAny($exchange, $exchangeType, $routingKey, $message, array $properties = [])
+    {
+        $properties[AmqpConstants::PROPERTY_EXCHANGE] = $exchange;
+        $properties[AmqpConstants::PROPERTY_EXCHANGE_TYPE] = $exchangeType;
+
+        self::publish($routingKey, $message, $properties);
+    }
 }
