@@ -101,8 +101,14 @@ class Request extends Context
                 $this->getProperty('queue_properties')
             );
 
-            $this->channel->queue_bind($queue ?: $this->queueInfo[0], $exchange, $this->getProperty('routing'));
-
+            if (is_array($this->getProperty('routing'))) {
+                foreach($this->getProperty('routing') as $route) {
+                    // Add each route specified
+                    $this->channel->queue_bind($queue ?: $this->queueInfo[0], $exchange, $route);
+                }
+            } else {
+                $this->channel->queue_bind($queue ?: $this->queueInfo[0], $exchange, $this->getProperty('routing'));
+            }
         }
 
         // clear at shutdown
