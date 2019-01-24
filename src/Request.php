@@ -51,63 +51,65 @@ class Request extends Context
     {
         $this->connect();
 
-        $exchange = $this->getProperty('exchange');
+        // Name of the queue the service listens on.  This is optional as a producer won't define one
+        $queue = $this->getProperty('queue');
 
-        if (empty($exchange)) {
+        $exchanges = $this->getProperty('exchanges');
+
+        if (empty($exchanges)) {
             throw new Exception\Configuration('Please check your settings, exchange is not defined.');
         }
 
         /*
-            name: $exchange
-            type: topic
+            name: $queue
             passive: false
-            durable: true // the exchange will survive server restarts
-            auto_delete: false //the exchange won't be deleted once the channel is closed.
+            durable: true // the queue will survive server restarts
+            exclusive: false // queue is deleted when connection closes
+            auto_delete: false //the queue won't be deleted once the channel is closed.
+            nowait: false // Doesn't wait on replies for certain things.
+            parameters: array // Extra data, like high availability params
         */
 
-        $this->channel->exchange_declare(
-            $exchange,
-            $this->getProperty('exchange_type'),
-            $this->getProperty('exchange_passive'),
-            $this->getProperty('exchange_durable'),
-            $this->getProperty('exchange_auto_delete'),
-            $this->getProperty('exchange_internal'),
-            $this->getProperty('exchange_nowait'),
-            $this->getProperty('exchange_properties')
+        /** @var ['queue name', 'message count',] queueInfo */
+        $this->queueInfo = $this->channel->queue_declare(
+            $queue,
+            $this->getProperty('queue_passive'),
+            $this->getProperty('queue_durable'),
+            $this->getProperty('queue_exclusive'),
+            $this->getProperty('queue_auto_delete'),
+            $this->getProperty('queue_nowait'),
+            $this->getProperty('queue_properties')
         );
 
-        $queue = $this->getProperty('queue');
-
-        if (!empty($queue) || $this->getProperty('queue_force_declare')) {
-
+        foreach($exchanges as $exchange) {
             /*
-                name: $queue
+                name: $exchange
+                type: topic|direct
                 passive: false
-                durable: true // the queue will survive server restarts
-                exclusive: false // queue is deleted when connection closes
-                auto_delete: false //the queue won't be deleted once the channel is closed.
-                nowait: false // Doesn't wait on replies for certain things.
-                parameters: array // Extra data, like high availability params
+                durable: true // the exchange will survive server restarts
+                auto_delete: false //the exchange won't be deleted once the channel is closed.
             */
 
-            /** @var ['queue name', 'message count',] queueInfo */
-            $this->queueInfo = $this->channel->queue_declare(
-                $queue,
-                $this->getProperty('queue_passive'),
-                $this->getProperty('queue_durable'),
-                $this->getProperty('queue_exclusive'),
-                $this->getProperty('queue_auto_delete'),
-                $this->getProperty('queue_nowait'),
-                $this->getProperty('queue_properties')
+            $this->channel->exchange_declare(
+                $exchange['exchange'],
+                $exchange['exchange_type'],
+                $exchange['exchange_passive'],
+                $exchange['exchange_durable'],
+                $exchange['exchange_auto_delete'],
+                $exchange['exchange_internal'],
+                $exchange['exchange_nowait'],
+                $exchange['exchange_properties']
             );
 
-            if (is_array($this->getProperty('routing'))) {
-                foreach($this->getProperty('routing') as $route) {
+            if(empty($exchange['routing'])) {
+                throw new Exception\Configuration('Please check your settings, no bindings for ' . $exchange['exchange']);
+            }
+
+            if (!empty($queue) || $exchange['queue_force_declare']) {
+                foreach ($exchange['routing'] as $route) {
                     // Add each route specified
-                    $this->channel->queue_bind($queue ?: $this->queueInfo[0], $exchange, $route);
+                    $this->channel->queue_bind($queue ?: $this->queueInfo[0], $exchange['exchange'], $route);
                 }
-            } else {
-                $this->channel->queue_bind($queue ?: $this->queueInfo[0], $exchange, $this->getProperty('routing'));
             }
         }
 
