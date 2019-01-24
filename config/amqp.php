@@ -32,14 +32,18 @@ return [
 //                'verify_peer' => true
 //            ],
 
-            'exchange'              => 'amq.topic',
-            'exchange_type'         => 'topic',
-            'exchange_passive'      => false,
-            'exchange_durable'      => true,
-            'exchange_auto_delete'  => false,
-            'exchange_internal'     => false,
-            'exchange_nowait'       => false,
-            'exchange_properties'   => [],
+            'exchanges' => [
+                [
+                    'exchange'              => 'amq.topic',
+                    'exchange_type'         => 'topic',
+                    'exchange_passive'      => false,
+                    'exchange_durable'      => true,
+                    'exchange_auto_delete'  => false,
+                    'exchange_internal'     => false,
+                    'exchange_nowait'       => false,
+                    'exchange_properties'   => [],
+                ],
+             ],
 
             'queue_force_declare'   => false,
             'queue_passive'         => false,
