@@ -101,7 +101,8 @@ class Request extends Context
                 $exchange['exchange_properties']
             );
 
-            if (!empty($queue) || $exchange['queue_force_declare']) {
+            if (!empty($exchange['routing'])
+                && (!empty($queue) || $exchange['queue_force_declare'])) {
                 foreach ($exchange['routing'] as $route) {
                     // Add each route specified
                     $this->channel->queue_bind($queue ?: $this->queueInfo[0], $exchange['exchange'], $route);
