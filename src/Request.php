@@ -60,26 +60,29 @@ class Request extends Context
             throw new Exception\Configuration('Please check your settings, exchanges is not defined.');
         }
 
-        /*
-            name: $queue
-            passive: false
-            durable: true // the queue will survive server restarts
-            exclusive: false // queue is deleted when connection closes
-            auto_delete: false //the queue won't be deleted once the channel is closed.
-            nowait: false // Doesn't wait on replies for certain things.
-            parameters: array // Extra data, like high availability params
-        */
+        // Only attempt to create a queue if the property has been defined
+        if (!empty($queue)) {
+            /*
+                name: $queue
+                passive: false
+                durable: true // the queue will survive server restarts
+                exclusive: false // queue is deleted when connection closes
+                auto_delete: false //the queue won't be deleted once the channel is closed.
+                nowait: false // Doesn't wait on replies for certain things.
+                parameters: array // Extra data, like high availability params
+            */
 
-        /** @var ['queue name', 'message count',] queueInfo */
-        $this->queueInfo = $this->channel->queue_declare(
-            $queue,
-            $this->getProperty('queue_passive'),
-            $this->getProperty('queue_durable'),
-            $this->getProperty('queue_exclusive'),
-            $this->getProperty('queue_auto_delete'),
-            $this->getProperty('queue_nowait'),
-            $this->getProperty('queue_properties')
-        );
+            /** @var ['queue name', 'message count',] queueInfo */
+            $this->queueInfo = $this->channel->queue_declare(
+                $queue,
+                $this->getProperty('queue_passive'),
+                $this->getProperty('queue_durable'),
+                $this->getProperty('queue_exclusive'),
+                $this->getProperty('queue_auto_delete'),
+                $this->getProperty('queue_nowait'),
+                $this->getProperty('queue_properties')
+            );
+        }
 
         foreach($exchanges as $exchange) {
             /*
