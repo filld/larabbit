@@ -57,7 +57,7 @@ class Request extends Context
         $exchanges = $this->getProperty('exchanges');
 
         if (empty($exchanges)) {
-            throw new Exception\Configuration('Please check your settings, exchange is not defined.');
+            throw new Exception\Configuration('Please check your settings, exchanges is not defined.');
         }
 
         /*
