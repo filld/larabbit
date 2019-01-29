@@ -101,10 +101,6 @@ class Request extends Context
                 $exchange['exchange_properties']
             );
 
-            if(empty($exchange['routing'])) {
-                throw new Exception\Configuration('Please check your settings, no bindings for ' . $exchange['exchange']);
-            }
-
             if (!empty($queue) || $exchange['queue_force_declare']) {
                 foreach ($exchange['routing'] as $route) {
                     // Add each route specified
