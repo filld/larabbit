@@ -13,7 +13,7 @@ AMQP wrapper for Laravel and Lumen to publish and consume messages especially fr
 Add the following to your require part within the composer.json: 
 
 ```js
-"filld/larabbit": "1.*"
+"filld/larabbit": "2.*"
 ```
 ```batch
 $ php composer update
@@ -60,13 +60,26 @@ return [
             'username'            => env('RABBITMQ_USERNAME'),
             'password'            => env('RABBITMQ_PASSWORD'),
             'vhost'               => env('RABBITMQ_VHOST'),
-            'exchange'            => 'amq.topic',
-            'exchange_type'       => 'topic',
+            'exchanges'           => [
+                                         [
+                                             'exchange'              => 'exchange_name',
+                                             'exchange_type'         => 'topic',
+                                             'exchange_passive'      => false,
+                                             'exchange_durable'      => true,
+                                             'exchange_auto_delete'  => false,
+                                             'exchange_internal'     => false,
+                                             'exchange_nowait'       => false,
+                                             'exchange_properties'   => [],
+                         
+                                             'routing' => [
+                                                 'routing.key.one',
+                                                 'routing.key.two',
+                                         ]
+                                     ],
             'consumer_tag'        => 'consumer',
             'ssl_options'         => [], // See https://secure.php.net/manual/en/context.ssl.php
             'connect_options'     => [], // See https://github.com/php-amqplib/php-amqplib/blob/master/PhpAmqpLib/Connection/AMQPSSLConnection.php
             'queue_properties'    => ['x-ha-policy' => ['S', 'all']],
-            'exchange_properties' => [],
             'timeout'             => 0
         ],
 
