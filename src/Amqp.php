@@ -18,7 +18,9 @@ class Amqp
 
     public function __destruct()
     {
-        Request::shutdown($this->publisher->getChannel(), $this->publisher->getConnection());
+        if ($this->publisher) {
+            Request::shutdown($this->publisher->getChannel(), $this->publisher->getConnection());
+        }
     }
 
     /**
