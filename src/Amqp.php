@@ -11,6 +11,16 @@ use Filld\Amqp\Message;
 class Amqp
 {
 
+    /* @var Publisher $publisher */
+    private $publisher;
+    /* @var array $properties */
+    private $properties = [];
+
+    public function __destruct()
+    {
+        Request::shutdown($this->publisher->getChannel(), $this->publisher->getConnection());
+    }
+
     /**
      * @param string $routing
      * @param mixed  $message
@@ -20,18 +30,19 @@ class Amqp
     {
         $properties['routing'] = $routing;
 
-        /* @var Publisher $publisher */
-        $publisher = app()->make('Filld\Amqp\Publisher');
-        $publisher
-            ->mergeProperties($properties)
-            ->setup();
+        if ($this->properties != $properties) {
+            $this->publisher = app()->make('Filld\Amqp\Publisher');
+            $this->properties = $properties;
+            $this->publisher
+                ->mergeProperties($this->properties)
+                ->setup();
+        }
 
         if (is_string($message)) {
             $message = new Message($message, ['content_type' => 'text/plain', 'delivery_mode' => 2]);
         }
 
-        $publisher->publish($routing, $message);
-        Request::shutdown($publisher->getChannel(), $publisher->getConnection());
+        $this->publisher->publish($routing, $message);
     }
 
     /**
