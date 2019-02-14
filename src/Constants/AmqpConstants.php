@@ -13,6 +13,8 @@ class AmqpConstants
     const EXCHANGE_TYPE_FANOUT = 'fanout';
     const EXCHANGE_TYPE_DIRECT = 'direct';
 
-    const HEADER_CONTENT_TYPE = 'content_type';
+    const HEADER_CONTENT_TYPE        = 'content_type';
+    const HEADER_APPLICATION_HEADERS = 'application_headers';
+
     const CONTENT_TYPE_JSON   = 'application/json';
 }
